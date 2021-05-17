@@ -3,6 +3,7 @@ package hello.hellospring.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class HelloController {
@@ -15,4 +16,18 @@ public class HelloController {
         //viewName 매핑
         //'resources:templates/{viewName}.html
     }
+
+    @GetMapping("hello-mvc")
+    public String helloMvc(@RequestParam("name") String name, Model model){
+        //RequestParam(value="name", required = true(default값) | true:값 받아야함 , false : 값 안 받아도 됨
+        //name 값을 주기 위해서 hello-mvc?name=spring!!!  =>  '?' 사용
+
+        model.addAttribute("name",name);
+        return "hello-template";
+    }
+
+    // 과정
+    // localhost:8080/hello-mvc => 내장 톰켓 서버
+    // 1. helloController : GetMapping 있으면 실행 -> hello-template.html 실행
+    // 2. hello-template.html : HTML 화면 출력
 }
